@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Backend API", version="1.0.0")
@@ -25,7 +25,7 @@ async def webhook(request: Request):
     query_params = dict(request.query_params)
     challenge = query_params.get("hub.challenge")
     print(challenge)
-    return challenge
+    return Response(content=challenge, media_type="text/plain")
 
 
 @app.get("/health")
